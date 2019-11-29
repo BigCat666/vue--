@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- ''  切成一个数组形式的单个字符串， ',' 切成数组形式的一组字符串 ---》数组 -->
+        <!-- <div>{{msg.split('').reverse().join('')}}</div> -->
+        <div v-text='reversed'></div>
+        <div v-text='Meth()'></div>
+        <!-- 调用的时候，计算属性不带(),方法带() -->
+        性 <input type="text" v-model='firstName'>
+        <div> 名 <input type="text" v-model='lastName'>
+        </div>
+        <div v-text='com'> 全 </div>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            msg: 'hello',
+            firstName: 'L',
+            lastName: 'G',
+            // fullName: 'L G'
+        },
+        methods: {
+            Meth: function() {
+                return this.msg.split('').reverse().join('')
+            }
+        },
+        // 计算属性是基于(data中的数据)依赖进行缓存的
+        computed: {
+            reversed: function() {
+                return this.msg.split('').reverse().join('')
+
+            },
+            com: function() {
+                return this.firstName + ' ' + this.lastName
+            }
+        }
+    })
+</script>
+
+</html>

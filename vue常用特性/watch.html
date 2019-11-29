@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用户登录检测 </title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <span>用户名</span>
+            <span>
+               <input type="text " v-focus v-model.lazy="username">
+            </span>
+            <span>{{tip}}</span>
+        </div>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    new Vue({
+            el: '#app',
+            data: {
+                username: '',
+                tip: '',
+                msg: 'hello'
+            },
+            methods: {
+                // 使用定时任务模拟接口调用
+                checkName: function(username) {
+                    setTimeout(() => {
+                        if (this.username == 'admin') {
+                            this.tip = '用户名已经存在，请重新输入'
+                        } else {
+                            this.tip = '用户名输入成功'
+                        }
+                    }, 1000);
+                }
+            },
+            watch: {
+
+                username: function(val) {
+                    // 调用模拟接口，验证用户的合法性
+                    this.checkName(val)
+                        // 验证提示信息
+                    this.tip = '正在验证，请稍等...'
+                }
+            },
+            directives: {
+                focus: {
+                    inserted: function(el) {
+                        el.focus();
+                    }
+                }
+            }
+
+        })
+        // 监听器： 数据一旦发生变化， 就会通知监听器所绑定的方法
+        // 用于数据变化执行异步或者耗时的操作  监听器处理异步程序
+</script>
+
+</html>
